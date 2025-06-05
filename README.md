@@ -6,4 +6,4 @@
 
 - 🙌 I'm familiar with: Postgres, Mongo, Linux, React, Redux, ClickHouse
 
-[![codewars](https://www.codewars.com/users/MaximusPython/badges/small)
+![codewars](https://www.codewars.com/users/MaximusPython/badges/small)
