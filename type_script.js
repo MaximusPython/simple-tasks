@@ -109,9 +109,24 @@ var user5 = {
 var users = []; // если мы хотим обьявить массив юзеров то к типу мы добавляем квадратные скобки
 var color = 'blue'; // другой цвет кроме троих назначенных мы передать уже не сможем
 // получившийся тип с литералами мы можем передать например аргументом в функцию
-var color2 = 'green';
+var color2 = 'yellow';
 function paint(color2) {
     return color2;
 }
-paint(color2);
 console.log(color2); // yellow
+//-----------------------------------
+var values7 = {
+    color: 'green',
+};
+var responseFromUserApi = {
+    data: {
+        username: 'DATA',
+    },
+};
+var responseFromArticleApi = {
+    data: {
+        title: 'volga',
+    },
+};
+console.log(responseFromUserApi);
+console.log(responseFromArticleApi);

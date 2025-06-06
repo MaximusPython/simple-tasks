@@ -300,3 +300,108 @@ interface User2 {
   readonly age2: number
   name2: string
 }
+//=================================================
+
+// Литералы с шаблонными строками
+
+type EventName = 'click' | 'change' // свой тип
+
+type EventHandler = ` on${EventName}` // создали свой тип который использует ивенты из первого типа
+
+//---------------------------------------
+type Userid = ` user_id${number} ` // строка будет начинаться с user_id
+
+//=================================================
+
+// GENERICS дженереки обобщения (Некий обобщенный тип)
+// пишется как аргумент для типа
+
+interface MetaData {}
+
+interface User5 {
+  username: string
+}
+
+interface Article {
+  title: string
+}
+
+interface ApiResponse2<T> {
+  status?: 'error' | 'success'
+  meta?: MetaData
+  requestId?: string
+  data: T // мы не знаем каой именно тип как дата придет поэтому используем T
+}
+
+const responseFromUserApi: ApiResponse2<User5> = {
+  data: {
+    username: 'DATA',
+  },
+}
+
+const responseFromArticleApi: ApiResponse2<Article> = {
+  data: {
+    title: 'volga',
+  },
+}
+
+// за счет generic типы делаются динамическими, их можно использоать несколько
+
+console.log(responseFromUserApi)
+console.log(responseFromArticleApi)
+
+////////////////////////////////
+
+function genericFn<T>(arg: T) {} // genericи в функциях
+
+const arrowGeneric = <T>(arg: T) => {} //стрелочныя функция
+
+///------------------------------------------------------
+
+// generic можно использовать в классах
+class Order<T> {
+  private data2: T
+
+  constructor(arg: T) {
+    this.data2 = arg // и теперь generic доступен внутри класса
+  }
+}
+///------------------------------------------------------
+// generics мы можем использовать по дефолту т е задать ему какой то определнный тип
+interface User6 {
+  username: string
+}
+
+interface Article2 {
+  title: string
+}
+
+interface ApiResponse3<Data = User6> {
+  data: Data
+}
+
+// const response: ApiResponse3 = {
+// data: {},
+// username: 'dwdwdwd',
+
+//-----------------------------
+// джинерки в тернарных операторах
+
+// с помощью строки ниже мы проверяем является ли тип массиовом
+type isArray<T> = T extends any[] ? true : false
+// если T расширяет любой масиив то true иначе false
+
+const first: isArray<string> = false // массива нет по этому "false"
+const second: isArray<string[]> = true // массив да по этому "true"
+
+//-----------------------------
+
+// еще пример проверки типа
+
+type Person2 = {
+  username: string
+}
+
+type RandomName<T> = T extends Person2 ? { value: number } : { value: string }
+
+//const third: RandomName<{ username: 'Misha' }> // расширяем тип Person2 по этому third: {value: number;} если передаем не мишу а число то value: string будет
