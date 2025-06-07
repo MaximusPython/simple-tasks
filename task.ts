@@ -1,31 +1,28 @@
-interface Persons {
+type PersonType = {
   id: number
   name: string
-  age: number | string
+  age: number
   isAdmin?: boolean
 }
 
-type PeopleArray = Persons[]
-
-interface Orders {
+type OrderType = {
   id: number
   userId: number
   product: string
-  price?: any
+  price: number
 }
 
-type OrdersArray = Orders[]
-
 // 1. Данные пользователей
-const users: PeopleArray = [
+const users: PersonType[] = [
   { id: 1, name: 'John', age: 25, isAdmin: false },
   { id: 2, name: 'Alice', age: 30, isAdmin: true },
-  { id: 3, name: 'Bob', age: 'twenty' },
+  { id: 3, name: 'Bob', age: 20 },
 ]
 
 // 2. Функция для получения пользователя по ID
-function getUserById(id: number): Persons | undefined {
-  if (Array.isArray(users)) return users.find((user: Persons) => user.id === id)
+function getUserById(id: number): PersonType | undefined {
+  if (Array.isArray(users))
+    return users.find((user: PersonType) => user.id === id)
   else {
     console.log(`Неверный тип у ${users}`)
     return undefined
@@ -33,19 +30,21 @@ function getUserById(id: number): Persons | undefined {
 }
 
 // 3. Данные заказов
-const orders: OrdersArray = [
+const orders: OrderType[] = [
   { id: 1, userId: 1, product: 'Laptop', price: 1000 },
-  { id: 2, userId: 2, product: 'Phone', price: '500' },
-  { id: 3, userId: 3, product: 'Tablet' },
+  { id: 2, userId: 2, product: 'Phone', price: 500 },
+  { id: 3, userId: 3, product: 'Tablet', price: 200 },
 ]
 
 // 4. Функция для получения заказов пользователя
-function getUserOrders(userId: number): Orders[] | undefined {
+function getUserOrders(userId: number): OrderType[] | undefined {
   if (typeof userId !== 'number') {
     console.log(`Неверный тип у ${userId}`)
     return undefined
   }
-  const ordersUsers = orders.filter((order: Orders) => order.userId === userId)
+  const ordersUsers = orders.filter(
+    (order: OrderType) => order.userId === userId
+  )
   return ordersUsers
 }
 
@@ -53,7 +52,10 @@ function getUserOrders(userId: number): Orders[] | undefined {
 function getTotalUserOrderPrice(userId: number): number | undefined {
   const userOrders = getUserOrders(userId)
   if (Array.isArray(userOrders))
-    return userOrders.reduce((total, order: Orders) => total + order.price, 0)
+    return userOrders.reduce(
+      (total, order: OrderType) => total + order.price,
+      0
+    )
   else {
     console.log(`Неверный тип у ${userOrders}.`)
     return undefined
