@@ -1,0 +1,12 @@
+const { parentPort, workerData } = require('worker_threads') // из бибилиотеки берем порт родителя куда будем постить сообщения с ответами и исходные данные
+const factorial = require('./factorial')
+// отдельно вынесли эту функцию в отдельный воркер
+const compute = ({ array }) => {
+  const arr = []
+  for (let i = 0; i < 1000000; i++) {
+    arr.push(i * i)
+  }
+  return array.map((el) => factorial(el))
+}
+
+parentPort.postMessage(compute(workerData))
