@@ -1,0 +1,13 @@
+{
+  "name": "wather-cli",
+  "version": "1.0.0",
+  "description": "Cli for getting weather",
+  "main": "weather.js",
+  "bin": {
+    "wather": "weather.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.9.0"
+  }
+}
