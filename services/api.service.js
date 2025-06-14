@@ -5,6 +5,30 @@ import { getKeyValue, TOKEN_DICTIONARY } from './storage.service.js'
 
 import axios from 'axios'
 
+const getIcon = (icon) => {
+  // создание функции для передачи иконки
+  switch (icon.slice(0, -1)) {
+    case '01':
+      return '☀️'
+    case '02':
+      return '☁️'
+    case '03':
+      return '☁️'
+    case '04':
+      return '☁️'
+    case '09':
+      return '🌧️'
+    case '10':
+      return '☀️'
+    case '11':
+      return '🌬️'
+    case '13':
+      return '☀️'
+    case '50':
+      return '❄️'
+  }
+}
+
 const getWeather = async (city) => {
   // опишем метод получения погоды
 
@@ -30,7 +54,6 @@ const getWeather = async (city) => {
       },
     }
   )
-  console.log(data)
   return data // выведет готовый обьект сразу а не json строку как у метода https
 
   // код ниже такой подход не испльзуется но для маленького проекта можно было бы
@@ -53,4 +76,4 @@ const getWeather = async (city) => {
   //   })
 }
 
-export { getWeather }
+export { getWeather, getIcon }

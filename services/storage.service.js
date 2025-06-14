@@ -25,6 +25,18 @@ const saveKeyValue = async (key, value) => {
   await promises.writeFile(filePath, JSON.stringify(data)) // будем сохранять ключ значение в наш файл по пути, данные для этого переводим в строку
 }
 
+const saveCityValue = async (key, value) => {
+  let data = {}
+  if (await isExist(filePath)) {
+    // проверка на то что файл не пустой
+    const file = await promises.readFile(filePath) // читаем файл
+    data = JSON.parse(file) // переводим файл из строки json в обьект
+  }
+
+  data[key] = value // записываем значение в дату
+  await promises.writeFile(filePath, JSON.stringify(data)) // будем сохранять ключ значение в наш файл по пути, данные для этого переводим в строку
+}
+
 const getKeyValue = async (key) => {
   // получения ключа
   if (await isExist(filePath)) {
@@ -47,7 +59,7 @@ const isExist = async (path) => {
   }
 }
 
-export { saveKeyValue, getKeyValue, TOKEN_DICTIONARY }
+export { saveKeyValue, getKeyValue, saveCityValue, TOKEN_DICTIONARY }
 
 // некоторые команды модуля path
 // console.log(basename(filePath)) // basename выводит последнюю папку или файл
