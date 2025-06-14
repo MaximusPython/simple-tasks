@@ -51,7 +51,7 @@ const getForcast = async () => {
   try {
     // TOKEN =2F22 CITY=moscow node weather.js
     const city = process.env.CITY ?? (await getKeyValue(TOKEN_DICTIONARY.city)) //  либо process.env.CITY либо город возьмем из токена
-    const weather = await getWeather(city) // передаем город в нашу функцию
+    const weather = await getWeather(city) // передаем город в нашу функцию, функцию создали в другом файле
     printWeather(weather, getIcon(weather.weather[0].icon))
     // res будет наш weather , 'иконка'
   } catch (e) {
