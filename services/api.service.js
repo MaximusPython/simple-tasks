@@ -10,7 +10,7 @@ const getWeather = async (city) => {
 
   //   const url = `api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}` // такой url не совсем безопасный
 
-  const token = await getKeyValue(TOKEN_DICTIONARY.token) // берем ключ токена
+  const token = process.env.TOKEN ?? (await getKeyValue(TOKEN_DICTIONARY.token)) // берем ключ токена, (сначала идет проверка на наличие глобальной переменной токена)
 
   if (!token) {
     throw new Error('Не задан ключ API, задайте его через команду -t [API_KEY]')
@@ -26,10 +26,11 @@ const getWeather = async (city) => {
         q: city,
         appid: token,
         lang: 'ru',
-        units: 'metric', // axios удобнее и лаконичнее чем https
+        units: 'metric', // axios удобнее и лаконичнее чем https, данные querry параметры мы взяли из документации api
       },
     }
   )
+  console.log(data)
   return data // выведет готовый обьект сразу а не json строку как у метода https
 
   // код ниже такой подход не испльзуется но для маленького проекта можно было бы

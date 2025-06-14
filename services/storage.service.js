@@ -1,8 +1,10 @@
 import { homedir } from 'os' // испортируем вывод домашней директории из библ os
 import { join } from 'path' // join из библиотеки которая делает путь до нашего файла
-import { promises } from 'fs' // чтобы записыать и читать файлы лучше использовать promises
+import { promises } from 'fs' // чтобы записывать и читать файлы лучше использовать promises
 
-const filePath = join(homedir(), 'weather.js') // это то где будет сохраняться все, данный файл появиться в нашей домашней директории с обьектом токена
+// тут представлены функции по записываеию токена в файл и функция на получения ключа
+
+const filePath = join(homedir(), 'weather.js') // это то где будет сохраняться  наш токен, данный файл появиться в нашей домашней директории с обьектом токена
 
 const TOKEN_DICTIONARY = {
   // для лучшей записи создаем токен как объект
@@ -47,6 +49,7 @@ const isExist = async (path) => {
 
 export { saveKeyValue, getKeyValue, TOKEN_DICTIONARY }
 
+// некоторые команды модуля path
 // console.log(basename(filePath)) // basename выводит последнюю папку или файл
 //   console.log(dirname(filePath)) // выведет путь где нахоится наш файл
 //   console.log(extname(filePath)) // выведет расширение нашего файла
