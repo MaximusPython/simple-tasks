@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express' // чтобы не было ошибки нужно скачать npm i -D @types/express
 
 const UserRouter = express.Router()
 

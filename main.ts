@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express' // импортируем типы из express
 import { UserRouter } from './users/users.js'
 
 const port = 8000
@@ -39,7 +39,8 @@ app.get(`/hello`, (req, res) => {
   throw new Error('Error!!!') // будет выдавать ошибку на сервере, ее нужно обработать
 })
 
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  // указываем эти типы
   // обработка ошибки, можно логику прописать какую нибудь
   console.log(err.message) // берем текст нашей ошибки
   res.status(500).send(err.message) // пользователю вернем текст ошибки
