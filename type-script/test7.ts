@@ -26,7 +26,7 @@ const point = new Coard(0, 1)
 
 class MapLocation extends Coard {
   name: string
-  message: '2'
+  //message: '2'
 
   override distance(newLat: number, newLong: number): number {
     //метод в классе
