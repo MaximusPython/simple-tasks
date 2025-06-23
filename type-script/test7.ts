@@ -61,11 +61,11 @@ class MapGet extends Coard {
 // имплементация (типа наследования только у интерфейса)
 
 interface LoggerService {
-  log: (s: string) => void
+  logger: (s: string) => void
 }
 
 class Logger implements LoggerService {
-  log(s: string) {
+  logger(s: string) {
     // по умолчанию лог публичный метод
 
     // string нужно описать явно так как с интерфейса это не влияет
@@ -77,7 +77,7 @@ class Logger implements LoggerService {
 }
 
 const l = new Logger()
-l.log('d') // метод публичный поэтому можно обратиться так
+l.logger('d') // метод публичный поэтому можно обратиться так
 
 //=========================================================
 
