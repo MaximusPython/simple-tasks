@@ -13,6 +13,7 @@ import { UserService } from './user.service.js';
 import { ValidateMiddleware } from '../common/validate.middleware.js';
 import { sign } from 'jsonwebtoken';
 import { IConfigService } from '../config/config.service.interface.js';
+import { AuthGuard } from '../common/auth.guard.js';
 
 @injectable() // сначала extend потои implement
 export class UserController extends BaseController implements UserControllerInterface {
@@ -23,7 +24,8 @@ export class UserController extends BaseController implements UserControllerInte
 		this.bindRoutes([
 			{ path: '/register', method: 'post', func: this.register, middlewares: [new ValidateMiddleware(UserRegisterDto)] }, // middlewares: на UserRegisterDto мы должны провалидировать наши данные
 			// наш контроллер прнимает допольнительно middleware
-			{ path: '/login', method: 'post', func: this.login,  middlewares: [new ValidateMiddleware(UserLoginDto)]  }, // middlewares: на UserLoginDto мы должны провалидировать наши данные
+			{ path: '/login', method: 'post', func: this.login,  middlewares: [new ValidateMiddleware(UserLoginDto)]  },// middlewares: на UserLoginDto мы должны провалидировать наши данные
+			{ path: '/info', method: 'get', func: this.info,  middlewares: [new AuthGuard()]  }, // добавляем наш мидлвер в наш контроллер
 		]);
 	}
 
@@ -48,6 +50,17 @@ export class UserController extends BaseController implements UserControllerInte
 		}
 		this.ok(res, {email: result.email, id: result.id})
 	}
+
+	async info( // вытаскиваеи информацию из токена и возратит пользователя
+		{ user }: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
+		const userInfo = await this.userService.getUserInfo(user)
+		this.ok(res, {email: userInfo?.email, id: userInfo?.id})
+
+		}
+	
 
 	private signJWT(email: string, secret: string): Promise<string> { // получаем наш токен
 		return new Promise<string>((resolve, reject) => {

@@ -12,6 +12,7 @@ import { ConfigService } from './config/config.servive.js';
 import { TYPES } from './types.js';
 import { json } from 'body-parser';
 import { PrismaService } from './database/prisma.service.js';
+import { AuthMiddleware } from './common/auth.middleware.js';
 
 @injectable()
 export class App {
@@ -42,6 +43,8 @@ export class App {
 	useMiddleware(): void {
 		// таким образом у нас глобально будет парсить json, берет body и кладет его в req.body, без него будет приходить просто undefined
 		this.app.use(json());
+		const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'));
+		this.app.use(authMiddleware.execute.bind(authMiddleware)); // использование нашего middleware, он будет использоваться во всех роутах
 	}
 
 	useExeptionFilter(): void {
