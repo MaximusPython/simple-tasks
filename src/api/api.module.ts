@@ -7,5 +7,6 @@ import { ConfigService } from '@nestjs/config';
 @Module({
   controllers: [ApiController],
   providers: [ApiService, PrismaService, ConfigService],
+  exports: [ApiService],
 })
 export class ApiModule {}

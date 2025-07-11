@@ -10,9 +10,9 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiService } from './api.service';
-import { ParseIntPipe } from 'src/conception/pipe';
-import { AuthGuard } from 'src/conception/guard';
-import { LoggingInterceptor } from 'src/conception/interceptor';
+import { ParseIntPipe } from '../conception/pipe';
+import { AuthGuard } from '../conception/guard';
+import { LoggingInterceptor } from '../conception/interceptor';
 import { ApiCreatedDto } from './api.dto';
 
 @Controller('api') // наш путь
