@@ -1,4 +1,4 @@
-project nest using ql graph, websockets, prisma, microservices, guards, middleware, pipes, e2e test.
+Project Nest using ql graph, websockets, prisma, microservices, guards, middleware, pipes, e2e test.
 
 
 <p align="center">
